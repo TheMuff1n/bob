@@ -10,6 +10,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
 
     implementation 'org.javacord:javacord:3.3.0'
+    implementation 'com.vdurmont:emoji-java:5.1.1'
 }
 
 application {

@@ -1,9 +1,8 @@
 package de.marvinstier.bob;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +38,11 @@ public class App {
     }
 
     private static String getToken() throws IOException, URISyntaxException {
-        return Files.readAllLines(Paths.get(ClassLoader.getSystemClassLoader().getResource("api_token.txt").toURI()))
-                .get(0);
+        byte[] data;
+        try (InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("api_token.txt")) {
+            data = in.readAllBytes();
+        }
+        return new String(data);
     }
 
     private static void registerCommands() {

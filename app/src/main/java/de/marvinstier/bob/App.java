@@ -15,6 +15,7 @@ import com.vdurmont.emoji.EmojiParser;
 
 import de.marvinstier.bob.commands.Command;
 import de.marvinstier.bob.commands.EchoCommand;
+import de.marvinstier.bob.commands.MockCommand;
 import de.marvinstier.bob.commands.PingCommand;
 import de.marvinstier.bob.reactions.AcceptRulesReaction;
 import de.marvinstier.bob.reactions.LmaoReaction;
@@ -48,6 +49,7 @@ public class App {
     private static void registerCommands() {
         COMMANDS.put("ping", new PingCommand());
         COMMANDS.put("echo", new EchoCommand());
+        COMMANDS.put("mock", new MockCommand());
     }
 
     private static void registerReactions() {

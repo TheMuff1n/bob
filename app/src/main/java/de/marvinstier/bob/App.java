@@ -47,9 +47,9 @@ public class App {
     }
 
     private static void registerCommands() {
-        COMMANDS.put("ping", new PingCommand());
-        COMMANDS.put("echo", new EchoCommand());
-        COMMANDS.put("mock", new MockCommand());
+        COMMANDS.put("ping", new PingCommand(false));
+        COMMANDS.put("echo", new EchoCommand(true));
+        COMMANDS.put("mock", new MockCommand(true));
     }
 
     private static void registerReactions() {
@@ -69,7 +69,11 @@ public class App {
         if (args.length < 1)
             return;
 
-        if (!COMMANDS.containsKey(args[0].toLowerCase()))
+        Command cmd = COMMANDS.get(args[0].toLowerCase());
+        if (cmd == null)
+            return;
+
+        if (event.isServerMessage() && cmd.isAdminCommand() && !event.getMessageAuthor().isServerAdmin())
             return;
 
         COMMANDS.get(args[0].toLowerCase()).execute(event);

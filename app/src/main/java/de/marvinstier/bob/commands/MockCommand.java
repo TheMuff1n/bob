@@ -21,6 +21,10 @@ public class MockCommand extends Command implements MessageCreateListener {
 
     @Override
     public void execute(MessageCreateEvent event) {
+        // only allowed to be executed by administrator
+        if (!event.getMessageAuthor().isServerAdmin())
+            return;
+
         ListenerManager<MessageCreateListener> manager = managers.remove(event.getChannel().getId());
         if (manager == null)
             managers.put(event.getChannel().getId(), event.getChannel().addMessageCreateListener(this));

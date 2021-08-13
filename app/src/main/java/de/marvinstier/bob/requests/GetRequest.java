@@ -10,9 +10,24 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class GetRequest {
+/**
+ * This is a utility class for sending get requests.
+ *
+ * @author Marvin Stier
+ * @version 1.0
+ */
+public class GetRequest {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(Version.HTTP_2).build();
 
+    /**
+     * Sends a GET request at given endpoint with given parameters, if any.
+     *
+     * @param endpoint URL pointing to the the API's endpoint
+     * @param parameters Map containing key-value pairs of request parameters
+     * @return the response of the GET request
+     * @throws IOException when sending the request fails
+     * @throws InterruptedException when the connection is interrupted
+     */
     public static HttpResponse<String> sendGet(String endpoint, Map<String, String> parameters)
             throws IOException, InterruptedException {
         StringBuilder uriString = new StringBuilder();

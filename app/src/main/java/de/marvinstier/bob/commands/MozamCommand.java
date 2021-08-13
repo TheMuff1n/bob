@@ -10,8 +10,14 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import de.marvinstier.bob.requests.GiphyRequest;
 import de.marvinstier.bob.requests.GiphyRequest.GiphyImage;
 
+/**
+ * This class provides a command that sends a random apex meme fetched from
+ * giphy.com into the channel the command was executed in.
+ *
+ * @author Marvin Stier
+ * @version 1.0
+ */
 public class MozamCommand extends Command {
-
     public MozamCommand(boolean isAdminCommand) {
         super(isAdminCommand);
     }

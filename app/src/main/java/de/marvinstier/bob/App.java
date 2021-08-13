@@ -16,6 +16,7 @@ import com.vdurmont.emoji.EmojiParser;
 import de.marvinstier.bob.commands.Command;
 import de.marvinstier.bob.commands.EchoCommand;
 import de.marvinstier.bob.commands.MockCommand;
+import de.marvinstier.bob.commands.MozamCommand;
 import de.marvinstier.bob.commands.PingCommand;
 import de.marvinstier.bob.reactions.AcceptRulesReaction;
 import de.marvinstier.bob.reactions.LmaoReaction;
@@ -50,6 +51,7 @@ public class App {
         COMMANDS.put("ping", new PingCommand(false));
         COMMANDS.put("echo", new EchoCommand(true));
         COMMANDS.put("mock", new MockCommand(true));
+        COMMANDS.put("apex", new MozamCommand(false));
     }
 
     private static void registerReactions() {

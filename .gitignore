@@ -69,3 +69,5 @@ local.properties
 .classpath
 
 api_token.txt
+giphy_token.txt
+mongo_connection.txt

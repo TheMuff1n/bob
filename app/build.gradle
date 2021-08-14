@@ -9,7 +9,7 @@ repositories {
 dependencies {
     testImplementation 'junit:junit:4.13.1'
 
-    implementation 'org.javacord:javacord:3.3.0'
+    implementation 'org.javacord:javacord:3.3.2'
     implementation 'com.vdurmont:emoji-java:5.1.1'
     implementation 'org.json:json:20090211'
 }

@@ -70,3 +70,4 @@ local.properties
 
 api_token.txt
 giphy_token.txt
+mongo_connection.txt

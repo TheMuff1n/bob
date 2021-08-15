@@ -12,6 +12,7 @@ dependencies {
     implementation 'org.javacord:javacord:3.3.0'
     implementation 'com.vdurmont:emoji-java:5.1.1'
     implementation 'org.json:json:20090211'
+    implementation 'org.mongodb:mongodb-driver-sync:4.0.5'
 }
 
 application {

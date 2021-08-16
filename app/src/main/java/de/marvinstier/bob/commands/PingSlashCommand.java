@@ -14,13 +14,16 @@ import de.marvinstier.bob.App;
  */
 public class PingSlashCommand extends SlashCommandExecutor {
     public PingSlashCommand() {
-        command = SlashCommand.with("ping", "Checks the functionality of this command").createGlobal(App.getApi())
-                .join();
+        super("ping");
+    }
+
+    @Override
+    protected SlashCommand create() {
+        return SlashCommand.with(name, "Checks the functionality of this command").createGlobal(App.getApi()).join();
     }
 
     @Override
     public void execute(SlashCommandCreateEvent event) {
         event.getSlashCommandInteraction().createImmediateResponder().setContent("Pong!").respond();
     }
-
 }

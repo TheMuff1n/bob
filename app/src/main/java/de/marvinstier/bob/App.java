@@ -34,6 +34,11 @@ public class App {
 
     private static DiscordApi api;
 
+    /**
+     * This method returns the api instance using a singleton pattern.
+     *
+     * @return the discord api instance
+     */
     public static DiscordApi getApi() {
         if (api == null) {
             try {
@@ -56,6 +61,13 @@ public class App {
         getApi().addSlashCommandCreateListener(App::handleSlashCommands);
     }
 
+    /**
+     * This method reads the discord api token string from a resource file.
+     *
+     * @return the discord api token
+     * @throws IOException        when reading from the file fails
+     * @throws URISyntaxException when the token file's location uri is misspelled
+     */
     private static String getToken() throws IOException, URISyntaxException {
         byte[] data;
         try (InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("api_token.txt")) {
@@ -64,6 +76,9 @@ public class App {
         return new String(data);
     }
 
+    /**
+     * This method registers active commands in a map.
+     */
     private static void registerCommands() {
         COMMANDS.put("ping", new PingCommand(false));
         COMMANDS.put("echo", new EchoCommand(true));
@@ -71,19 +86,36 @@ public class App {
         COMMANDS.put("apex", new MozamCommand(false));
     }
 
+    /**
+     * This method registers reaction commands in a map.
+     */
     private static void registerReactions() {
         REACTIONS.put(EmojiParser.parseToUnicode(":rofl:"), new LmaoReaction());
         REACTIONS.put(EmojiParser.parseToUnicode(":white_check_mark:"), new AcceptRulesReaction());
     }
 
+    /**
+     * This method registers slash commands in a map.
+     */
     private static void registerSlashCommands() {
         registerSlashCommand(new PingSlashCommand());
     }
 
+    /**
+     * This method puts given command's id and the executor in a map.
+     *
+     * @param command
+     */
     private static void registerSlashCommand(SlashCommandExecutor command) {
         SLASH_COMMANDS.put(command.getId(), command);
     }
 
+    /**
+     * This method is called when a user sends a message and relays the event to
+     * command handlers when it is detected to be a command invocation.
+     *
+     * @param event object containing information about the created message
+     */
     private static void handleCommands(MessageCreateEvent event) {
         if (event.getMessage().getAuthor().isBotUser())
             return;
@@ -106,6 +138,13 @@ public class App {
         COMMANDS.get(args[0].toLowerCase()).execute(event);
     }
 
+    /**
+     * This method is called when a user send a reaction to a message and relays the
+     * event to reaction commands when one listening for the sent emoji is
+     * registered.
+     *
+     * @param event object containing information about the reaction
+     */
     private static void handleReactions(ReactionAddEvent event) {
         String unicodeEmoji = event.getEmoji().getMentionTag();
 
@@ -115,12 +154,18 @@ public class App {
         REACTIONS.get(unicodeEmoji).execute(event);
     }
 
+    /**
+     * This method is called when a user invokes a slash command and relays the
+     * event to a slash command executor when one for the given name is registered.
+     *
+     * @param event object containing information about the slash command
+     */
     private static void handleSlashCommands(SlashCommandCreateEvent event) {
         SlashCommandInteraction slashCommandInteraction = event.getSlashCommandInteraction();
 
-        if (!SLASH_COMMANDS.containsKey(slashCommandInteraction.getId()))
+        if (!SLASH_COMMANDS.containsKey(slashCommandInteraction.getCommandId()))
             return;
 
-        SLASH_COMMANDS.get(slashCommandInteraction.getId()).execute(event);
+        SLASH_COMMANDS.get(slashCommandInteraction.getCommandId()).execute(event);
     }
 }

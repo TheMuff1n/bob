@@ -2,7 +2,6 @@ package de.marvinstier.bob.commands;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageFlag;
-import org.javacord.api.entity.message.MessageSet;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommand;
@@ -58,8 +57,8 @@ public class DeleteSlashCommand extends SlashCommandExecutor {
         int count = interaction.getFirstOptionIntValue().orElse(10);
         interaction.getChannel().ifPresentOrElse(channel -> {
             deleteMessages(channel, count);
-            // TODO: return actual messages deleted
-            interaction.createImmediateResponder().setContent(String.format("%d messages deleted!", count))
+            interaction.createImmediateResponder()
+                    .setContent(String.format("Deleting (up to) %d messages, this might take a while!", count))
                     .setFlags(MessageFlag.EPHEMERAL).respond();
         }, () -> {
             SlashCommandExecutor.immediateUnexpectedError(interaction);
@@ -71,11 +70,12 @@ public class DeleteSlashCommand extends SlashCommandExecutor {
      *
      * @param channel the channel in which to delete messages
      * @param count   the number of messages to delete
-     * @return the number of messages deleted
      */
-    private int deleteMessages(TextChannel channel, int count) {
-        MessageSet messages = channel.getMessages(count).join();
-        channel.deleteMessages(messages).join();
-        return messages.size();
+    private void deleteMessages(TextChannel channel, int count) {
+        // TODO: use different delete method?
+        channel.getMessagesAsStream().limit(count).forEach(message -> {
+            if (message.canYouDelete())
+                message.delete();
+        });
     }
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.event.message.reaction.ReactionAddEvent;
@@ -60,6 +61,8 @@ public class App {
         getApi().addMessageCreateListener(App::handleCommands);
         getApi().addReactionAddListener(App::handleReactions);
         getApi().addSlashCommandCreateListener(App::handleSlashCommands);
+
+        getApi().updateActivity(ActivityType.LISTENING, "Fahrstuhlmusik");
     }
 
     /**

@@ -16,6 +16,7 @@ import org.javacord.api.interaction.SlashCommandInteraction;
 import com.vdurmont.emoji.EmojiParser;
 
 import de.marvinstier.bob.commands.Command;
+import de.marvinstier.bob.commands.DeleteSlashCommand;
 import de.marvinstier.bob.commands.EchoCommand;
 import de.marvinstier.bob.commands.MockCommand;
 import de.marvinstier.bob.commands.MozamCommand;
@@ -99,6 +100,7 @@ public class App {
      */
     private static void registerSlashCommands() {
         registerSlashCommand(new PingSlashCommand());
+        registerSlashCommand(new DeleteSlashCommand());
     }
 
     /**

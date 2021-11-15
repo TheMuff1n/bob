@@ -105,7 +105,7 @@ public class App {
 	private static void registerSlashCommands() {
 		registerSlashCommand(new PingSlashCommand());
 		registerSlashCommand(new DeleteSlashCommand());
-		api.getServerById(883770776770195546L).ifPresent(server -> new ESlashCommand(server));
+		api.getServerById(883770776770195546L).ifPresent(server -> registerSlashCommand(new ESlashCommand(server)));
 	}
 
 	/**

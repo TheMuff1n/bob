@@ -7,8 +7,6 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.interaction.SlashCommand;
 import org.javacord.api.listener.message.MessageCreateListener;
 
-import io.vavr.NotImplementedError;
-
 /**
  * This is a meme command, lol.
  *
@@ -22,7 +20,7 @@ public class ESlashCommand extends SlashCommandExecutor implements MessageCreate
 
 	@Override
 	protected SlashCommand registerGlobal() {
-		throw new NotImplementedError("For \"security\" reasons this command can only be registered for a server.");
+		throw new UnsupportedOperationException("For \"security\" reasons this command can only be registered for a server.");
 	}
 
 	@Override
